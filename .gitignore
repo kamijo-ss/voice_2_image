@@ -1,0 +1,17 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+cache/
+
+# Model
+assets/stable-diffusion-v1-4-openvino/text_encoder.bin
+assets/stable-diffusion-v1-4-openvino/unet.bin
+assets/vosk-model-ja-0.22
+assets/assets/fugumt-ja-en/pytorch_model.bin
+
+# Virtual environments
+.venv
