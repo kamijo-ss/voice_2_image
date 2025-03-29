@@ -7,11 +7,11 @@ wheels/
 *.egg-info
 cache/
 
-# Model
+# Virtual environments
+.venv
+
+# Pre-trained Models
 assets/stable-diffusion-v1-4-openvino/text_encoder.bin
 assets/stable-diffusion-v1-4-openvino/unet.bin
 assets/vosk-model-ja-0.22
-assets/assets/fugumt-ja-en/pytorch_model.bin
-
-# Virtual environments
-.venv
+assets/fugumt-ja-en/pytorch_model.bin
