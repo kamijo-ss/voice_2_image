@@ -70,9 +70,7 @@ class MyApp(QWidget):
             self.load_sd()
             self.vosk = Model("assets/vosk-model-ja-0.22")
             self.device = torch.device("cpu")
-            self.translate_model = MarianMTModel.from_pretrained("assets/fugumt-ja-en")
-            self.translate_model.eval()
-            self.translate_model = self.translate_model.to(self.device)
+            self.translate_model = MarianMTModel.from_pretrained("assets/fugumt-ja-en").eval().to(self.device)
             self.tokenizer = MarianTokenizer.from_pretrained("assets/fugumt-ja-en")
             # スレッドのtext_receivedシグナルにgenerate_imageメソッドを接続
             self.transcription_thread = SpeechToTextThread(self)
@@ -118,14 +116,15 @@ class MyApp(QWidget):
         self.transcription_thread.start()
 
     def translate_voice(self, voice):
-        inputs = self.tokenizer(voice, return_tensors="pt", padding=True, truncation=True)
-        inputs = {key: value.to(self.device) for key, value in inputs.items()}
+        # 辞書内包でtoken生成とdeviceへの転送を同時に行うと負荷が増す気がして分割（諸説あり）
+        input_ids_ram = self.tokenizer(voice, return_tensors="pt", padding=True, truncation=True)
+        input_ids_device = {key: value.to(self.device) for key, value in input_ids_ram.items()}
         with torch.no_grad():
-            return self.translate_model.generate(**inputs)
+            return self.translate_model.generate(**input_ids_device)
 
     def generate_image(self,voice):
         prompt = self.tokenizer.decode(self.translate_voice(voice)[0], skip_special_tokens=True)
-        self.ui.label_2.setText("generating...")
+        self.ui.label.setText("generating...")
         self.ui.label_2.setText("検出しました 生成中...")
         self.ui.textBrowser.setText(prompt)
         self.ui.textBrowser_2.setText(voice)
