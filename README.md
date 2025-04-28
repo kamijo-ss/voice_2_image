@@ -20,7 +20,6 @@ https://alphacephei.com/vosk/models/vosk-model-ja-0.22.zip
 （別途モデルのDL用スクリプト組んでもよかったが億劫だった）
 
 3. **仮想環境作成**  
-cd stable_diffusion_uv  
 uv sync  
 uv run stable_diffusionって叩いて1分くらい待つとアプリが起動します
 
