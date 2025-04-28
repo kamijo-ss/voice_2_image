@@ -37,6 +37,6 @@ uv tool install dist\stable_diffusion-0.1.0-py3-none-any.whl
 
 
 ## 音声が認識されない時は
-uv run device_search.py  
+uv run device_list.py  
 ↑音声デバイスの一覧が表示されます  
 お使いの入力デバイスのIDを控えてsrc/stable_diffusion/main.pyの26行目(device_id)に記述してください

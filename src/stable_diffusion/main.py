@@ -23,7 +23,7 @@ class SpeechToTextThread(QThread):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.vosk = parent.vosk
-        self.device_id  = 1                 # pyaudioのget_device_info_by_indexで入力デバイスのIDを調べて設定
+        self.device_id  = 1                 # uv run device_list.pyで取得したID
         self.format     = pyaudio.paInt16   # 16bit
         self.channels   = 1                 # Voskがモノラルに最適化されてるのでモノラルにする
         self.rate       = 16000             # サンプルレートもVoskに合わせる
